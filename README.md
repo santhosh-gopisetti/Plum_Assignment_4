@@ -2,7 +2,7 @@
 
 ***
 
-# 📄 AI-Powered Benefits Discovery Flow
+# AI-Powered Benefits Discovery Flow
 
 ## SDE Intern Assignment (Problem Statement 4)
 
@@ -25,7 +25,7 @@ This project implements a secure, multi-screen flow built on React to classify a
 ### Hosted Demo Link
 
 The complete four-screen flow is available and fully functional here:
-🔗 **LIVE DEMO:** `https://santhosh-gopisetti-p-qkec.bolt.host/`
+ **LIVE DEMO:** `https://plum-assignment-4.vercel.app/`
 
 ***
 
@@ -75,9 +75,7 @@ The **`api.js`** file acts as a resilient service wrapper, demonstrating advance
 
 ***
 
-## 5. Screenshots / Screen Recording
-
-*(Please embed your images directly in the GitHub README or ensure the hosted demo link is visible)*
+## 5. Screenshots
 
 | Screen | Description |
 | :--- | :--- |
