@@ -25,7 +25,7 @@ This project implements a secure, multi-screen flow built on React to classify a
 ### Hosted Demo Link
 
 The complete four-screen flow is available and fully functional here:
- **LIVE DEMO:** `https://plum-assignment-4.vercel.app/`
+ [View Live Demo](https://plum-assignment-4.vercel.app/)
 
 ***
 
