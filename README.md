@@ -77,9 +77,9 @@ The **`api.js`** file acts as a resilient service wrapper, demonstrating advance
 
 ## 5. Screenshots
 
-| Screen 1: Input & Intent Capture | Screen 2: Classification & Loading |
+| Screen 1: Input & Intent Capture | Screen 2: Classification & Loading | Screen 3: Health Benefits | Screen 4: Action Plan |
 | :---: | :---: |
-| ![Input Screen Image](screenshots/input_screen.png) | ![Loading Classification Screen](screenshots/loading_screen.png) |
+| ![Input Screen Image](screenshots/input.png) | ![Loading Classification Screen](screenshots/loading.png) | ![Benefits Screen](screenshots/benefits.png) | ![Action Plan Screen](screenshots/actionplan.png) |
 | ... | ... |
 
 ***
