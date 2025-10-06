@@ -77,12 +77,10 @@ The **`api.js`** file acts as a resilient service wrapper, demonstrating advance
 
 ## 5. Screenshots
 
-| Screen | Description |
-| :--- | :--- |
-| **Input Screen** |  (Shows polished UI and input validation.) |
-| **Loading Screen** |  (Shows contextual progress bar and async feedback.) |
-| **Benefits List** |  (Shows modular benefit cards.) |
-| **Action Plan** |  (Shows interactive 3-step timeline and regeneration button.) |
+| Screen 1: Input & Intent Capture | Screen 2: Classification & Loading |
+| :---: | :---: |
+| ![Input Screen Image](screenshots/input_screen.png) | ![Loading Classification Screen](screenshots/loading_screen.png) |
+| ... | ... |
 
 ***
 
