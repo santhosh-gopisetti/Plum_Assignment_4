@@ -16,6 +16,7 @@ const PROCESS_STEPS = [
 
 export const LoadingScreen = () => {
     // --- USING GLOBAL CONTEXT STATE ---
+    // --- USING GLOBAL CONTEXT STATE ---
     const { 
         inputText, 
         setBenefits, 
@@ -107,6 +108,40 @@ export const LoadingScreen = () => {
                         <p className="text-lg text-teal-600 dark:text-teal-400 font-medium">
                             {isAnalysisComplete ? 'Analysis Complete. Preparing Options...' : 'We\'re matching your needs to your coverage benefits now.'}
                         </p>
+
+                        {/* Progress Bar: FIX: Gradient is Purple/Teal */}
+                        <div className="w-full max-w-md mb-8">
+                            <div className="h-2 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
+                                <div
+                                    className="h-full bg-gradient-to-r from-teal-500 to-indigo-600 transition-all duration-300 ease-out"
+                                    style={{ width: `${progress}%` }}
+                                />
+                            </div>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2">{progress}% complete</p>
+                        </div>
+
+                        {/* Contextual Steps: FIX: Default is dark for contrast, accents use Purple/Teal */}
+                        <div className="w-full max-w-md space-y-4 animate-in slide-in-from-bottom-4">
+                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-2 duration-500">
+                                <div className="w-2 h-2 bg-indigo-600 dark:bg-teal-400 rounded-full animate-pulse"></div>
+                                <span>Processing your request</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-3 duration-700">
+                                <div className="w-2 h-2 bg-teal-500 dark:bg-indigo-600 rounded-full animate-pulse"></div>
+                                <span>Classifying benefit category</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-4 duration-900">
+                                <div className="w-2 h-2 bg-indigo-600 dark:bg-teal-400 rounded-full animate-pulse"></div>
+                                <span>Finding matching benefits</span>
+                            </div>
+                        </div>
+
+                        {/* Input Display: FIX: Default background is light, dark text */}
+                        <div className="mt-8 p-4 bg-gray-100 border border-gray-300 dark:bg-white/5 dark:border-gray-700 rounded-lg w-full animate-in slide-in-from-bottom-5">
+                            <p className="text-sm text-gray-700 dark:text-gray-400 italic leading-relaxed">
+                                "{inputText.substring(0, 150)}{inputText.length > 150 ? '...' : ''}"
+                            </p>
+                        </div>
                     </div>
 
                     {/* 3. CREATIVE: ANIMATED PROCESS FLOW (Visual Timeline) */}
