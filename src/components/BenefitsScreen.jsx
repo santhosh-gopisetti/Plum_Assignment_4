@@ -30,49 +30,45 @@ export const BenefitsScreen = () => {
                 {/* Back Button / Start Over */}
                 <button
                     onClick={handleBack}
-                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 mb-8 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
+                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 mb-6 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
                     aria-label="Start over"
                 >
-                    {/* Increased font size to text-lg */}
-                    <ArrowLeft className="w-6 h-6 text-indigo-600 dark:text-teal-400" />
-                    <span className="font-semibold text-lg">Start Over</span>
+                    <ArrowLeft className="w-5 h-5 text-indigo-600 dark:text-teal-400" />
+                    <span className="font-medium">Start Over</span>
                 </button>
 
                 {/* Header Card: Clean, simple shadow and border */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 md:p-12 mb-10 animate-in slide-in-from-top-4 duration-700">
-                    <div className="flex items-start gap-5 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 md:p-10 mb-8 animate-in slide-in-from-top-4 duration-700">
+                    <div className="flex items-start gap-4 mb-6">
                         <div className="relative">
                             {/* Icon: Updated to Purple/Teal Success Color */}
                             <div className="absolute inset-0 bg-teal-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
-                            <div className="relative bg-gradient-to-br from-teal-500 to-indigo-600 p-4 rounded-full shadow-lg">
-                                {/* Increased Icon size from w-8 h-8 to w-10 h-10 */}
-                                <CheckCircle2 className="w-10 h-10 text-white" />
+                            <div className="relative bg-gradient-to-br from-teal-500 to-indigo-600 p-3 rounded-full shadow-lg">
+                                <CheckCircle2 className="w-8 h-8 text-white" />
                             </div>
                         </div>
                         <div className="flex-grow">
-                            <div className="flex items-center gap-3 mb-2">
-                                {/* Increased title size from text-3xl/4xl to text-4xl/5xl */}
-                                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 capitalize leading-tight">
+                            <div className="flex items-center gap-2 mb-2">
+                                {/* FIX: Text is dark in light mode */}
+                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 capitalize">
                                     {aiCategory} Benefits Found
                                 </h1>
-                                {/* Increased Icon size from w-6 h-6 to w-8 h-8 */}
-                                <Award className="w-8 h-8 text-yellow-400" />
+                                <Award className="w-6 h-6 text-yellow-400" />
                             </div>
-                            {/* Increased descriptive text from text-lg to text-xl */}
-                            <p className="text-gray-700 dark:text-gray-300 text-xl mt-1">
+                            {/* FIX: Text is dark in light mode, accent is Indigo */}
+                            <p className="text-gray-700 dark:text-gray-300 text-lg">
                                 We found <span className="font-bold text-indigo-600 dark:text-teal-400">{benefits.length}</span> benefit{benefits.length !== 1 ? 's' : ''} that match your needs.
                             </p>
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-300 dark:border-gray-700 pt-6 mt-4">
-                        {/* Increased instruction text from text-lg to text-xl */}
-                        <p className="text-xl text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-3">
-                            <Info className="w-6 h-6 text-indigo-600 dark:text-teal-400" />
+                    <div className="border-t border-gray-300 dark:border-gray-700 pt-6">
+                        {/* FIX: Text is dark, icon is Purple */}
+                        <p className="text-lg text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+                            <Info className="w-5 h-5 text-indigo-600 dark:text-teal-400" />
                             Based on your needs, here are the benefits available to you:
                         </p>
-                        {/* Increased hint text from text-sm to text-base */}
-                        <p className="text-base text-gray-600 dark:text-gray-400 ml-9">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 ml-7">
                             Select any benefit to get a personalized action plan.
                         </p>
                     </div>
@@ -80,27 +76,24 @@ export const BenefitsScreen = () => {
 
                 {/* Conditional Rendering: List Benefits or Show Empty State */}
                 {benefits.length === 0 ? (
-                    <Card className="p-16 text-center bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 animate-in zoom-in duration-500">
-                        <div className="mb-6">
-                            {/* Increased Icon size from w-16 h-16 to w-20 h-20 */}
-                            <Info className="w-20 h-20 text-indigo-500 mx-auto" />
+                    <Card className="p-12 text-center bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 animate-in zoom-in duration-500">
+                        <div className="mb-4">
+                            <Info className="w-16 h-16 text-indigo-500 mx-auto" />
                         </div>
-                        {/* Increased empty state message from text-xl to text-2xl */}
-                        <p className="text-2xl text-gray-700 dark:text-gray-300 mb-8 font-medium">
-                            We couldn't find specific benefits for **"{aiCategory}"**. Please refine your search or start over.
+                        <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
+                            We couldn't find specific benefits for "{aiCategory}". Please refine your search or start over.
                         </p>
-                        <Button onClick={handleBack} variant="primary" size="xl" className="bg-indigo-600 hover:bg-indigo-700 shadow-xl text-white">
+                        <Button onClick={handleBack} variant="primary" size="lg" className="bg-indigo-600 hover:bg-indigo-700 shadow-md text-white">
                             Try a Different Search
                         </Button>
                     </Card>
                 ) : (
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid md:grid-cols-2 gap-6">
                         {benefits.map((benefit, index) => (
                             <div 
                                 key={benefit.title} 
                                 className={`animate-in slide-in-from-bottom-4 duration-500 delay-${index * 100}`}
                             >
-                                {/* NOTE: BenefitCard text sizes will need to be updated internally as well, but the container classes are fine here */}
                                 <BenefitCard benefit={benefit} onSelect={() => handleGetActionPlan(benefit)} />
                             </div>
                         ))}
@@ -108,10 +101,9 @@ export const BenefitsScreen = () => {
                 )}
 
                 {/* Footer Hint - Simple Background */}
-                <div className="mt-10 bg-white dark:bg-gray-800 rounded-xl p-6 text-center border border-gray-300 dark:border-gray-700 animate-in slide-in-from-bottom-8 duration-700">
-                    {/* Increased footer text from text-gray-700 (default size) to text-lg */}
-                    <p className="text-lg text-gray-700 dark:text-gray-300">
-                        <span className="font-bold text-indigo-600 dark:text-teal-400">Need help choosing?</span> Each action plan will guide you step-by-step through accessing the benefit.
+                <div className="mt-8 bg-white dark:bg-gray-800 rounded-xl p-6 text-center border border-gray-300 dark:border-gray-700 animate-in slide-in-from-bottom-8 duration-700">
+                    <p className="text-gray-700 dark:text-gray-300">
+                        <span className="font-semibold text-indigo-600 dark:text-teal-400">Need help choosing?</span> Each action plan will guide you step-by-step through accessing the benefit.
                     </p>
                 </div>
             </div>

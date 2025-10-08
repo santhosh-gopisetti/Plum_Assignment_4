@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useFlow } from '../context/FlowContext';
-import { FileText, Sparkles, Info, Zap } from 'lucide-react'; 
+import { FileText, Sparkles, Info } from 'lucide-react';
 import { Button } from './ui/Button';
 import { ScreenContainer } from './ui/ScreenContainer';
-import { CheckCircle, Lock } from 'lucide-react'; // Added for Trust Bar icons
 
 const EXAMPLE_PROMPTS = [
-    
+    "I have a toothache and need dental care",
+    "I've been feeling stressed and anxious lately",
+    "My vision is blurry and I need glasses"
 ];
 
 export const InputScreen = () => {
@@ -15,7 +16,6 @@ export const InputScreen = () => {
     const [charCount, setCharCount] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
     const MAX_CHARS = 500;
-    const MIN_CHARS = 10; 
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -26,7 +26,7 @@ export const InputScreen = () => {
     };
 
     const handleDiscoverBenefits = () => {
-        if (localInput.trim().length >= MIN_CHARS) {
+        if (localInput.trim()) {
             setInputText(localInput);
             setCurrentScreen('loading');
         }
@@ -43,58 +43,49 @@ export const InputScreen = () => {
         }
     };
 
-    const isValid = localInput.trim().length >= MIN_CHARS;
+    const isValid = localInput.trim().length >= 10;
 
     return (
-        // Full Screen Container - 50/50 split
-        <ScreenContainer className="flex h-screen w-full bg-white dark:bg-slate-900 relative">
+        <ScreenContainer 
+            className="flex items-center justify-center p-6 animate-in fade-in duration-500 bg-gray-50 dark:bg-gray-950 min-h-screen relative"
+            // Set the background image URL and styling for relevance
+            style={{
+                backgroundImage: 'url(https://source.unsplash.com/random/1600x900/?health,abstract,data)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
+            {/* Dark Overlay for Readability */}
+            <div className="absolute inset-0 bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"></div>
             
-            {/* LEFT HALF: Input Form - w-1/2 (50%) */}
-            <div className="w-1/2 flex items-center justify-center p-8 lg:p-16 animate-in fade-in duration-500 overflow-y-auto z-10">
-                <div className="max-w-xl w-full">
-                    
-                    {/* Header/Branding Block */}
-                    <div className="text-center mb-10">
-                        <div className="flex items-center justify-center mb-4">
-                            <div className="relative">
-                                {/* Logo/Icon Block - Blue/Sky Gradient */}
-                                <div className="absolute inset-[-10px] bg-sky-400 rounded-full blur-xl opacity-20 animate-pulse"></div>
-                                <div className="relative bg-gradient-to-br from-blue-700 to-sky-400 p-5 rounded-full shadow-2xl">
-                                    <FileText className="w-8 h-8 text-white" />
-                                </div>
+            <div className="max-w-3xl w-full z-10">
+                {/* Main Card: Clean, simple shadow and border */}
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 md:p-12">
+                    <div className="flex items-center justify-center mb-6 animate-in slide-in-from-top-4 duration-700">
+                        {/* Icon: Purple/Teal Gradient */}
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-indigo-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                            <div className="relative bg-gradient-to-br from-indigo-700 to-teal-500 p-4 rounded-full shadow-lg">
+                                <FileText className="w-12 h-12 text-white" />
                             </div>
                         </div>
-                        {/* Title (Increased Size) */}
-                        <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-3 dark:text-white">
-                           Health Benefits Discovery Assistant
-                        </h1>
-                        {/* Tagline (Increased Size) */}
-                        <p className="text-xl text-blue-600 dark:text-sky-400 animate-in slide-in-from-top-6 duration-700">
-                           
-                        </p>
                     </div>
 
-                    {/* Example Prompts */}
-                    <div className="flex flex-wrap gap-2 mb-4 justify-center">
-                        {EXAMPLE_PROMPTS.map((example, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handleExampleClick(example)}
-                                className="text-sm text-blue-700 dark:text-sky-300 hover:text-white bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-600 dark:hover:bg-blue-700 px-3 py-1.5 rounded-full transition-colors border border-blue-300 dark:border-blue-700 flex items-center gap-1 font-medium whitespace-nowrap"
-                            >
-                                <Zap className="w-3.5 h-3.5" />
-                                {example.split(' ').slice(0, 3).join(' ')}...
-                            </button>
-                        ))}
-                    </div>
+                    {/* Text: High Contrast */}
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 text-center mb-4 animate-in slide-in-from-top-5 duration-700">
+                        Benefits Discovery Assistant
+                    </h1>
 
-                    {/* Main Input Area */}
-                    <div className="p-8 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl bg-white dark:bg-gray-800">
-                        {/* Input Label (Increased Size) */}
-                        <label htmlFor="needs-input" className="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <p className="text-lg text-gray-700 dark:text-gray-300 text-center mb-8 animate-in slide-in-from-top-6 duration-700">
+                        Describe your needs, and our AI will help you find the right benefits and guide you through the process.
+                    </p>
+
+                    <div className="mb-6 animate-in slide-in-from-bottom-4 duration-700">
+                        <label htmlFor="needs-input" className="block text-sm font-semibold text-indigo-600 dark:text-teal-400 mb-3">
                             What do you need help with?
                         </label>
-                        <div className={`relative transition-all duration-300 ${isFocused ? 'shadow-blue-500/30 ring-4 ring-blue-500/20 rounded-xl' : ''}`}>
+                        <div className={`relative transition-all duration-200 ${isFocused ? 'transform scale-[1.01] shadow-md shadow-indigo-300/40' : ''}`}>
+                            {/* Textarea: Clean Focus Ring */}
                             <textarea
                                 id="needs-input"
                                 value={localInput}
@@ -102,8 +93,8 @@ export const InputScreen = () => {
                                 onKeyDown={handleKeyPress}
                                 onFocus={() => setIsFocused(true)}
                                 onBlur={() => setIsFocused(false)}
-                                placeholder="Example: I am suffering from severe dental problem."
-                                className="w-full h-44 px-4 py-3 text-gray-900 dark:text-white border-2 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-xl focus:border-blue-700 focus:outline-none transition-all resize-none placeholder-gray-500 dark:placeholder-gray-400"
+                                placeholder="Describe your situation in detail..."
+                                className="w-full h-40 px-4 py-3 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl focus:border-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-300/60 transition-all resize-none"
                                 aria-describedby="char-count input-hint"
                             />
                             <div className="absolute bottom-3 right-3 text-sm text-gray-500 dark:text-gray-400" id="char-count">
@@ -113,72 +104,49 @@ export const InputScreen = () => {
                         {!isValid && localInput.length > 0 && (
                             <p className="text-sm text-red-600 mt-2 flex items-center gap-1 animate-in slide-in-from-top-2">
                                 <Info className="w-4 h-4" />
-                                Please provide at least {MIN_CHARS} characters for better analysis.
+                                Please provide at least 10 characters for better analysis
                             </p>
                         )}
-                    </div>
-                    
-                    {/* Action Block */}
-                    <div className="mt-6">
-                        <Button
-                            onClick={handleDiscoverBenefits}
-                            disabled={!isValid}
-                            variant="primary"
-                            size="lg"
-                            // CTA (Increased Size) - Blue/Sky Gradient
-                            className="w-full h-16 text-xl bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 shadow-2xl shadow-blue-500/50 text-white transition-all duration-300"
-                            icon={Sparkles}
-                        >
-                            Analyze My Benefits Instantly
-                        </Button>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center" id="input-hint">
-                          
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2" id="input-hint">
+                            Tip: Press {navigator.platform.includes('Mac') ? 'Cmd' : 'Ctrl'}+Enter to submit
                         </p>
                     </div>
-                    
-                    {/* Trust Bar (Crucial for a health app) */}
-                    <div className="mt-6 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div className="flex justify-around items-center text-xs font-medium text-gray-600 dark:text-gray-400">
-                            <span className="flex items-center gap-1">
-                              
-                            </span>
-                            <span className="flex items-center gap-1">
-                                
-                            </span>
-                            <span className="flex items-center gap-1">
-                
-                            </span>
+
+                    {/* Button: Primary Indigo */}
+                    <Button
+                        onClick={handleDiscoverBenefits}
+                        disabled={!isValid}
+                        variant="primary"
+                        size="lg"
+                        className="w-full mb-6 animate-in slide-in-from-bottom-5 duration-700 bg-indigo-600 hover:bg-indigo-700 shadow-md text-white"
+                        icon={Sparkles}
+                    >
+                        Discover Benefits
+                    </Button>
+
+                    {/* Example Prompts: Teal/Indigo Accent */}
+                    <div className="space-y-4 animate-in slide-in-from-bottom-6 duration-700">
+                        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">Try these examples:</p>
+                        <div className="grid gap-2">
+                            {EXAMPLE_PROMPTS.map((example, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleExampleClick(example)}
+                                    className="text-left text-sm text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 dark:text-teal-400 dark:bg-teal-900/40 dark:hover:bg-teal-900/60 px-4 py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] border border-indigo-200 dark:border-teal-500/20"
+                                >
+                                    "{example}"
+                                </button>
+                            ))}
                         </div>
                     </div>
-
-                    {/* How it works: Footer Hint */}
-                    <div className="mt-10 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-xl border border-blue-200 dark:border-blue-800">
-                        <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
-                            <span className="font-bold text-blue-700 dark:text-sky-400">How it works:</span> Our AI analyzes your needs, identifies relevant benefits, and creates a personalized action plan to help you access them.
-                        </p>
-                    </div>
                 </div>
-            </div>
 
-            {/* RIGHT HALF: Image and Branding - w-1/2 (50%) */}
-            <div 
-                className="w-1/2 relative bg-cover bg-center animate-in fade-in duration-1000 hidden md:block"
-                style={{ 
-                    backgroundImage: "url('/h.jpg')", 
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
-            >
-                {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-center justify-end pb-20 p-8">
-                    <h2 className="text-4xl lg:text-5xl font-extrabold text-white text-center leading-tight drop-shadow-lg mb-4">
-                        Health Benefits Discovery Assistant
-                    </h2>
-                    <p className="text-lg text-sky-300 text-center drop-shadow-md">
-                        AI-Powered Navigation for Your Employee Benefits.
+                {/* Footer Hint: Clean, simple background */}
+                <div className="mt-6 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md animate-in slide-in-from-bottom-7 duration-700 border border-gray-200 dark:border-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
+                        <span className="font-semibold text-indigo-600 dark:text-teal-400">How it works:</span> Our AI analyzes your needs, identifies relevant benefits, and creates a personalized action plan to help you access them.
                     </p>
                 </div>
-                <div className="absolute top-4 right-4 text-white p-2 rounded-lg backdrop-blur-sm bg-black/30 text-sm">Dark Mode</div>
             </div>
         </ScreenContainer>
     );
