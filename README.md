@@ -11,8 +11,6 @@ This project implements a secure, multi-screen flow built on React to classify a
 | Feature | Implementation |
 | :--- | :--- |
 | **Tech Stack** | React, JavaScript (JSX), Context API, Tailwind CSS |
-| **Architecture** | Centralized Context; Dedicated Service Layer (`api.js`). |
-| **Resilience** | API Retries, Local Fallbacks, and **AI Guardrails**. |
 
 ***
 
@@ -57,7 +55,7 @@ The solution uses a **two-stage simulated AI process**, heavily emphasizing cons
 
 ## 4. Architecture & Code Structure
 
-### A. Resilience and Guardrails (SDE Focus)
+### A. Resilience and Guardrails
 
 The **`api.js`** file acts as a resilient service wrapper, demonstrating advanced async handling:
 
