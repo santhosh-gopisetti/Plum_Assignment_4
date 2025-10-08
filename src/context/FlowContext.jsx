@@ -13,7 +13,7 @@ export const FlowProvider = ({ children }) => {
   
   // State for proper async handling and UI feedback
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); // Added dedicated state for general errors
+  const [error, setError] = useState(null); 
 
   const value = {
     // State values
@@ -24,7 +24,7 @@ export const FlowProvider = ({ children }) => {
     selectedBenefit,
     actionPlan,
     isLoading,
-    error, // Export error state
+    error, 
 
     // State setters
     setCurrentScreen,
@@ -34,7 +34,7 @@ export const FlowProvider = ({ children }) => {
     setSelectedBenefit,
     setActionPlan,
     setIsLoading,
-    setError, // Export error setter
+    setError, 
   };
 
   return <FlowContext.Provider value={value}>{children}</FlowContext.Provider>;
