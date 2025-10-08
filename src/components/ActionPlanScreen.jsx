@@ -15,10 +15,10 @@ export const ActionPlanScreen = () => {
         actionPlan, 
         setActionPlan, 
         setCurrentScreen, 
-        error,         // <-- Using global error state
-        setError,      // <-- Using global error setter
-        isLoading,     // <-- Using global loading state
-        setIsLoading   // <-- Using global loading setter
+        error,         
+        setError,      
+        isLoading,     
+        setIsLoading   
     } = useFlow();
 
     const [copied, setCopied] = useState(false);
@@ -31,22 +31,19 @@ export const ActionPlanScreen = () => {
 
             try {
                 setError(null);
-                setIsLoading(true); // START global loading
+                setIsLoading(true); 
                 
-                // --- CORE LOGIC: Simulated AI 2 Generation ---
                 const plan = await generateActionPlan(selectedBenefit.title);
                 
                 setActionPlan(plan);
-                setCompletedSteps(new Set()); // Reset completion state on new plan
+                setCompletedSteps(new Set()); 
             } catch (err) {
-                // Handle API error by setting global error state
                 setError(err);
             } finally {
-                setIsLoading(false); // END global loading
+                setIsLoading(false); 
             }
         };
 
-        // Fetch on initial render or when selectedBenefit changes (though it shouldn't here)
         fetchActionPlan();
     }, [selectedBenefit, setActionPlan, setError, setIsLoading]); 
 
@@ -56,7 +53,6 @@ export const ActionPlanScreen = () => {
     };
 
     const handleStartOver = () => {
-        // Clearing flow data ensures a clean start
         setActionPlan([]); 
         setCurrentScreen('input');
     };
@@ -64,14 +60,11 @@ export const ActionPlanScreen = () => {
     const handleCopyPlan = async () => {
         const planText = actionPlan.map((step, index) => `${index + 1}. ${step}`).join('\n');
         try {
-            // Using modern clipboard API (suitable for most environments)
             await navigator.clipboard.writeText(planText);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error('Failed to copy (clipboard API error):', err);
-            // Fallback for environments where clipboard API is restricted
-            // (You might add document.execCommand('copy') here if needed)
         }
     };
 
@@ -86,10 +79,8 @@ export const ActionPlanScreen = () => {
     };
 
     const handleRegenerate = () => {
-        // Clears current plan visually and re-triggers the useEffect logic
         setActionPlan([]);
         
-        // Manual trigger for the API call logic
         const regenerateLogic = async () => {
              if (!selectedBenefit) return;
              try {
@@ -109,12 +100,15 @@ export const ActionPlanScreen = () => {
 
     // --- INITIAL CHECK ---
     if (!selectedBenefit) {
-        // This case is unlikely if the flow is followed, but handles deep linking errors
         return (
-            <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-900 animate-in fade-in">
-                <Card className="p-12 text-center">
-                    <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">No benefit selected.</p>
-                    <Button onClick={handleStartOver} variant="primary">
+            <div className="min-h-screen flex items-center justify-center p-6 bg-gray-100 dark:bg-gray-950 animate-in fade-in">
+                <Card className="p-12 text-center bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                    <p className="text-xl text-gray-700 dark:text-gray-300 mb-4">No benefit selected.</p>
+                    <Button 
+                        onClick={handleStartOver} 
+                        variant="primary"
+                        className="bg-fuchsia-600 hover:bg-fuchsia-500 shadow-lg shadow-fuchsia-500/40 text-white"
+                    >
                         Start Over
                     </Button>
                 </Card>
@@ -124,62 +118,66 @@ export const ActionPlanScreen = () => {
 
     // --- RENDER ---
     return (
-        <ScreenContainer className="py-12 px-6 animate-in fade-in duration-500">
+        <ScreenContainer className="py-12 px-6 animate-in fade-in duration-500 bg-gray-100 dark:bg-gray-950 min-h-screen">
             <div className="max-w-4xl mx-auto">
                 <button
                     onClick={handleBack}
-                    className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mb-6 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
+                    className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 mb-6 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
                     aria-label="Back to benefits"
                 >
-                    <ArrowLeft className="w-5 h-5" />
+                    <ArrowLeft className="w-5 h-5 text-fuchsia-600 dark:text-cyan-400" />
                     <span className="font-medium">Back to Benefits</span>
                 </button>
 
-                <Card className="p-8 md:p-12 backdrop-blur-sm bg-opacity-95 animate-in slide-in-from-top-4 duration-700">
+                {/* Main Card: Sleek Glassmorphism */}
+                <div className="bg-white/90 dark:bg-gray-800/20 backdrop-blur-xl rounded-2xl shadow-2xl shadow-fuchsia-500/10 border border-gray-300 dark:border-fuchsia-400/30 p-8 md:p-12 animate-in slide-in-from-top-4 duration-700">
                     {/* Selected Benefit Header */}
                     <div className="mb-8">
                         <div className="flex items-start gap-3 mb-4">
+                            {/* Icon: Updated to Fuchsia/Cyan */}
                             <div className="relative">
-                                <div className="absolute inset-0 bg-blue-400 rounded-full blur-lg opacity-30 animate-pulse"></div>
-                                <div className="relative bg-gradient-to-br from-indigo-500 to-indigo-600 p-2 rounded-full">
+                                <div className="absolute inset-0 bg-fuchsia-400 rounded-full blur-lg opacity-30 animate-pulse"></div>
+                                <div className="relative bg-gradient-to-br from-fuchsia-600 to-cyan-500 p-2 rounded-full">
                                     <Sparkles className="w-6 h-6 text-white" />
                                 </div>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                            {/* FIX: Text is dark in light mode */}
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
                                 {selectedBenefit.title}
                             </h1>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-200 text-lg leading-relaxed">
+                        {/* FIX: Text is dark in light mode */}
+                        <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
                             {selectedBenefit.description}
                         </p>
-                        {/* Coverage/Eligibility Details */}
-                        <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg space-y-2 text-sm border border-indigo-200 dark:border-indigo-800">
+                        {/* Coverage/Eligibility Details - Updated Background */}
+                        <div className="mt-4 p-4 bg-fuchsia-50 dark:bg-cyan-900/40 rounded-lg space-y-2 text-sm border border-fuchsia-300 dark:border-cyan-500/30">
                             {selectedBenefit.coverage && (
                                 <p>
-                                    <span className="font-semibold text-gray-700 dark:text-gray-300">Coverage:</span>{' '}
-                                    <span className="text-gray-600 dark:text-gray-300">{selectedBenefit.coverage}</span>
+                                    <span className="font-semibold text-gray-800 dark:text-cyan-300">Coverage:</span>{' '}
+                                    <span className="text-gray-700 dark:text-gray-300">{selectedBenefit.coverage}</span>
                                 </p>
                             )}
                             {selectedBenefit.eligibility && (
                                 <p>
-                                    <span className="font-semibold text-gray-700 dark:text-gray-300">Eligibility:</span>{' '}
-                                    <span className="text-gray-600 dark:text-gray-300">{selectedBenefit.eligibility}</span>
+                                    <span className="font-semibold text-gray-800 dark:text-fuchsia-300">Eligibility:</span>{' '}
+                                    <span className="text-gray-700 dark:text-gray-300">{selectedBenefit.eligibility}</span>
                                 </p>
                             )}
                         </div>
                     </div>
 
                     {/* Action Plan Section */}
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    <div className="border-t border-gray-300 dark:border-gray-700 pt-8">
+                        {/* FIX: Text is dark in light mode */}
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
                             Your Personalized Action Plan
                         </h2>
 
-                        {/* Loading/Error State */}
+                        {/* Loading/Error State (Error message colors assumed correct) */}
                         {error && (
                             <ErrorMessage
                                 error={error}
-                                // Retry handler uses the regenerate logic
                                 onRetry={error.retryable ? handleRegenerate : undefined} 
                                 onDismiss={handleBack}
                                 className="mb-6"
@@ -188,13 +186,13 @@ export const ActionPlanScreen = () => {
 
                         {isLoading && !error && (
                             <div className="flex flex-col items-center py-12 animate-in zoom-in duration-500">
-                                {/* Custom Loader UI */}
+                                {/* Custom Loader UI: Updated to Fuchsia/Cyan */}
                                 <div className="relative mb-6">
-                                    <div className="relative bg-gradient-to-br from-indigo-500 to-indigo-600 p-5 rounded-full shadow-2xl">
+                                    <div className="relative bg-gradient-to-br from-fuchsia-500 to-cyan-400 p-5 rounded-full shadow-2xl">
                                         <Loader2 className="w-10 h-10 text-white animate-spin" />
                                     </div>
                                 </div>
-                                <p className="text-lg text-gray-600 dark:text-gray-300 font-medium">
+                                <p className="text-lg text-gray-700 dark:text-gray-300 font-medium">
                                     Generating your personalized action plan...
                                 </p>
                             </div>
@@ -205,7 +203,7 @@ export const ActionPlanScreen = () => {
                             <div className="space-y-6">
                                 <div className="relative pl-8">
                                     {/* Vertical Timeline Line */}
-                                    <div className="absolute left-3 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700" /> 
+                                    <div className="absolute left-3 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700" /> 
                                     <div className="space-y-5">
                                         {actionPlan.map((step, index) => (
                                             <TimelineStep
@@ -220,43 +218,46 @@ export const ActionPlanScreen = () => {
                                 </div>
 
                                 <div className="flex items-center justify-center pt-2 animate-in zoom-in duration-500 delay-300">
-                                    <CheckCircle2 className="w-6 h-6 text-green-600 mr-2 animate-pulse" />
-                                    <p className="text-green-600 font-semibold text-lg">Action plan ready! Click each step to mark as complete.</p>
+                                    {/* Check Icon: Updated Color */}
+                                    <CheckCircle2 className="w-6 h-6 text-fuchsia-600 dark:text-cyan-400 mr-2 animate-pulse" />
+                                    <p className="text-fuchsia-600 dark:text-cyan-400 font-semibold text-lg">Action plan ready! Click each step to mark as complete.</p>
                                 </div>
 
                                 {/* Action Buttons (Copy, Regenerate, Discover More) */}
                                 <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-in slide-in-from-bottom-8 duration-700">
-                                    <Button onClick={handleCopyPlan} variant="secondary" size="lg" className="flex-1" icon={copied ? Check : Clipboard}>
+                                    {/* Secondary Buttons: Darker BG, Colored Text */}
+                                    <Button onClick={handleCopyPlan} variant="secondary" size="lg" className="flex-1 bg-gray-200 hover:bg-gray-300 text-cyan-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-cyan-400" icon={copied ? Check : Clipboard}>
                                         {copied ? 'Copied!' : 'Copy Plan'}
                                     </Button>
-                                    <Button onClick={handleRegenerate} variant="secondary" size="lg" className="flex-1">
+                                    <Button onClick={handleRegenerate} variant="secondary" size="lg" className="flex-1 bg-gray-200 hover:bg-gray-300 text-fuchsia-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-fuchsia-400">
                                         Regenerate Plan
                                     </Button>
-                                    <Button onClick={handleStartOver} variant="primary" size="lg" className="flex-1" icon={Sparkles}>
+                                    {/* Primary Button: Fuchsia Accent */}
+                                    <Button onClick={handleStartOver} variant="primary" size="lg" className="flex-1 bg-fuchsia-600 hover:bg-fuchsia-500 shadow-lg shadow-fuchsia-500/40 text-white" icon={Sparkles}>
                                         Discover More Benefits
                                     </Button>
                                 </div>
                             </div>
                         )}
                     </div>
-                </Card>
+                </div>
 
-                {/* Completion Banner */}
+                {/* Completion Banner - Updated Background */}
                 {completedSteps.size === actionPlan.length && actionPlan.length > 0 && (
-                    <div className="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-700 animate-in zoom-in duration-500">
+                    <div className="mt-6 bg-cyan-50 dark:bg-cyan-900/30 rounded-xl p-6 border-2 border-cyan-300 dark:border-cyan-600/50 animate-in zoom-in duration-500">
                         <div className="flex items-center justify-center gap-3">
-                            <CheckCircle2 className="w-8 h-8 text-green-600" />
-                            <p className="text-green-900 dark:text-green-300 font-bold text-lg">
+                            <CheckCircle2 className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+                            <p className="text-cyan-900 dark:text-cyan-200 font-bold text-lg">
                                 Congratulations! You've completed all steps. Your benefit should be accessible soon!
                             </p>
                         </div>
                     </div>
                 )}
                 
-                {/* Footer Hint */}
-                <div className="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 animate-in slide-in-from-bottom-9 duration-700">
-                    <p className="text-gray-700 dark:text-gray-200 text-center">
-                        <span className="font-semibold">Next steps:</span> Follow each step in order to successfully access your benefit. If you have questions, contact your HR department for assistance.
+                {/* Footer Hint - Updated Background */}
+                <div className="mt-6 p-4 bg-white/90 dark:bg-gray-800/20 backdrop-blur-lg rounded-xl border border-gray-400 dark:border-gray-700 animate-in slide-in-from-bottom-9 duration-700">
+                    <p className="text-gray-700 dark:text-gray-300 text-center">
+                        <span className="font-semibold text-fuchsia-600 dark:text-fuchsia-400">Next steps:</span> Follow each step in order to successfully access your benefit. If you have questions, contact your HR department for assistance.
                     </p>
                 </div>
 

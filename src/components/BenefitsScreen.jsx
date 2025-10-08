@@ -24,46 +24,51 @@ export const BenefitsScreen = () => {
 
     // --- UI RENDER ---
     return (
-        <ScreenContainer className="py-12 px-6 animate-in fade-in duration-500">
+        <ScreenContainer className="py-12 px-6 animate-in fade-in duration-500 bg-gray-100 dark:bg-gray-950 min-h-screen">
             <div className="max-w-5xl mx-auto">
                 {/* Back Button / Start Over */}
                 <button
                     onClick={handleBack}
-                    className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
+                    // FIX: Text color set to dark gray for contrast
+                    className="flex items-center gap-2 text-gray-700 dark:text-gray-100 hover:text-gray-900 mb-6 transition-all transform hover:-translate-x-1 animate-in slide-in-from-left-4"
                     aria-label="Start over"
                 >
-                    <ArrowLeft className="w-5 h-5" />
+                    <ArrowLeft className="w-5 h-5 text-fuchsia-600 dark:text-fuchsia-400" />
                     <span className="font-medium">Start Over</span>
                 </button>
 
-                {/* Header Card: AI Classification Result */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-10 mb-8 animate-in slide-in-from-top-4 duration-700">
+                {/* Header Card: Applied Glassmorphism and new colors */}
+                <div className="bg-white/90 dark:bg-gray-800/20 backdrop-blur-xl rounded-2xl shadow-xl shadow-fuchsia-500/10 border border-gray-300 dark:border-cyan-400/30 p-8 md:p-10 mb-8 animate-in slide-in-from-top-4 duration-700">
                     <div className="flex items-start gap-4 mb-6">
                         <div className="relative">
-                            <div className="absolute inset-0 bg-green-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
-                            <div className="relative bg-gradient-to-br from-green-500 to-green-600 p-3 rounded-full shadow-lg">
+                            {/* Icon: Updated to Fuchsia/Cyan Success Color */}
+                            <div className="absolute inset-0 bg-cyan-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                            <div className="relative bg-gradient-to-br from-cyan-500 to-fuchsia-600 p-3 rounded-full shadow-lg">
                                 <CheckCircle2 className="w-8 h-8 text-white" />
                             </div>
                         </div>
                         <div className="flex-grow">
                             <div className="flex items-center gap-2 mb-2">
-                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white capitalize">
+                                {/* FIX: Text is dark in light mode */}
+                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 capitalize">
                                     {aiCategory} Benefits Found
                                 </h1>
-                                <Award className="w-6 h-6 text-yellow-500" />
+                                <Award className="w-6 h-6 text-yellow-400" />
                             </div>
-                            <p className="text-gray-600 dark:text-gray-100 text-lg">
-                                We found <span className="font-bold text-indigo-600">{benefits.length}</span> benefit{benefits.length !== 1 ? 's' : ''} that match your needs.
+                            {/* FIX: Text is dark in light mode, accent is Fuchsia */}
+                            <p className="text-gray-700 dark:text-gray-300 text-lg">
+                                We found <span className="font-bold text-fuchsia-600 dark:text-fuchsia-400">{benefits.length}</span> benefit{benefits.length !== 1 ? 's' : ''} that match your needs.
                             </p>
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                        <p className="text-lg text-gray-700 dark:text-gray-100 mb-2 flex items-center gap-2">
-                            <Info className="w-5 h-5 text-indigo-600" />
+                    <div className="border-t border-gray-300 dark:border-gray-700 pt-6">
+                        {/* FIX: Text is dark, icon is Fuchsia */}
+                        <p className="text-lg text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
+                            <Info className="w-5 h-5 text-fuchsia-600 dark:text-cyan-400" />
                             Based on your needs, here are the benefits available to you:
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-300 ml-7">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 ml-7">
                             Select any benefit to get a personalized action plan.
                         </p>
                     </div>
@@ -71,21 +76,20 @@ export const BenefitsScreen = () => {
 
                 {/* Conditional Rendering: List Benefits or Show Empty State */}
                 {benefits.length === 0 ? (
-                    <Card className="p-12 text-center animate-in zoom-in duration-500">
+                    <Card className="p-12 text-center bg-gray-100 border border-gray-300 dark:bg-gray-800 dark:border-gray-700 animate-in zoom-in duration-500">
                         <div className="mb-4">
-                            <Info className="w-16 h-16 text-gray-400 mx-auto" />
+                            <Info className="w-16 h-16 text-fuchsia-500 mx-auto" />
                         </div>
-                        <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                        <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
                             We couldn't find specific benefits for "{aiCategory}". Please refine your search or start over.
                         </p>
-                        <Button onClick={handleBack} variant="primary" size="lg">
+                        <Button onClick={handleBack} variant="primary" size="lg" className="bg-fuchsia-600 hover:bg-fuchsia-500 shadow-lg shadow-fuchsia-500/40 text-white">
                             Try a Different Search
                         </Button>
                     </Card>
                 ) : (
                     <div className="grid md:grid-cols-2 gap-6">
                         {benefits.map((benefit, index) => (
-                            // Staggered animation for better UI/UX
                             <div 
                                 key={benefit.title} 
                                 className={`animate-in slide-in-from-bottom-4 duration-500 delay-${index * 100}`}
@@ -96,10 +100,10 @@ export const BenefitsScreen = () => {
                     </div>
                 )}
 
-                {/* Footer Hint */}
-                <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 rounded-xl p-6 text-center border border-blue-200 dark:border-gray-700 animate-in slide-in-from-bottom-8 duration-700">
-                    <p className="text-gray-700 dark:text-gray-200">
-                        <span className="font-semibold">Need help choosing?</span> Each action plan will guide you step-by-step through accessing the benefit.
+                {/* Footer Hint - Applied Glassmorphism */}
+                <div className="mt-8 bg-white/90 dark:bg-gray-800/20 backdrop-blur-lg rounded-xl p-6 text-center border border-gray-300 dark:border-gray-700 animate-in slide-in-from-bottom-8 duration-700">
+                    <p className="text-gray-700 dark:text-gray-300">
+                        <span className="font-semibold text-fuchsia-600 dark:text-fuchsia-400">Need help choosing?</span> Each action plan will guide you step-by-step through accessing the benefit.
                     </p>
                 </div>
             </div>
