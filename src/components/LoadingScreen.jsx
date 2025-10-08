@@ -6,7 +6,6 @@ import { ErrorMessage } from './ui/ErrorMessage';
 import { ScreenContainer } from './ui/ScreenContainer';
 
 export const LoadingScreen = () => {
-    // --- USING GLOBAL CONTEXT STATE ---
     const { 
         inputText, 
         setBenefits, 
@@ -14,14 +13,12 @@ export const LoadingScreen = () => {
         setCurrentScreen, 
         error,         
         setError,      
-        setIsLoading   
+        setIsLoading     
     } = useFlow();
 
     const [progress, setProgress] = useState(0);
 
-    // --- EFFECT: API Call and Progress Bar Logic ---
     useEffect(() => {
-        // Start the fake progress bar animation
         const progressInterval = setInterval(() => {
             setProgress(prev => (prev >= 90 ? 90 : prev + 10));
         }, 200);
@@ -44,80 +41,82 @@ export const LoadingScreen = () => {
 
             } catch (err) {
                 setError(err);
+            } finally {
                 setIsLoading(false); 
             }
         };
 
         classifyInput();
 
-        // Cleanup: vital to prevent memory leaks!
         return () => clearInterval(progressInterval);
     }, [inputText, setAiCategory, setBenefits, setCurrentScreen, setError, setIsLoading]); 
     
-    
     return (
-        <ScreenContainer className="flex items-center justify-center p-6 animate-in fade-in duration-500 bg-gray-50 dark:bg-gray-950 min-h-screen">
-            <div className="max-w-2xl w-full">
-                {/* Main Card: Clean White in Light Mode */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-12">
-                    <div className="flex flex-col items-center">
-                        <div className="relative mb-8 animate-in zoom-in duration-500">
-                            {/* Custom Animated Loader UI: Updated to Purple/Teal */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-32 h-32 bg-teal-400 rounded-full animate-ping opacity-20"></div>
-                            </div>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-28 h-28 bg-indigo-400 rounded-full animate-pulse opacity-30"></div>
-                            </div>
-                            <div className="relative bg-gradient-to-br from-indigo-600 to-teal-500 p-6 rounded-full shadow-2xl">
-                                <Loader2 className="w-12 h-12 text-white animate-spin" />
-                            </div>
+        // FIX: Background is now white
+        <ScreenContainer className="flex items-center justify-center p-6 animate-in fade-in duration-500 bg-white dark:bg-slate-900 min-h-screen">
+            {error && <ErrorMessage message={error.message || 'An unknown error occurred'} />}
+            <div className="max-w-xl w-full p-8 md:p-12 text-center"> 
+                
+                {/* Animated Loader Block */}
+                <div className="flex flex-col items-center">
+                    <div className="relative mb-10 animate-in zoom-in duration-500">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-40 h-40 bg-sky-400 rounded-full animate-ping opacity-10"></div>
                         </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-32 h-32 bg-blue-500 rounded-full animate-pulse opacity-20"></div>
+                        </div>
+                        <div className="relative bg-gradient-to-br from-blue-700 to-sky-400 p-8 rounded-full shadow-2xl">
+                            {/* Increased Loader Icon size from w-16 h-16 to w-20 h-20 */}
+                            <Loader2 className="w-20 h-20 text-white animate-spin" />
+                        </div>
+                    </div>
 
-                        {/* Heading Text: FIX: Default is dark for contrast */}
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2 animate-in slide-in-from-top-4">
-                            <Sparkles className="w-8 h-8 text-indigo-600 dark:text-teal-400 animate-pulse" />
-                            Analyzing Your Needs
-                        </h2>
+                    {/* Increased text size from text-4xl to text-5xl (or text-4xl on smaller screens) */}
+                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6 flex items-center justify-center gap-4 animate-in slide-in-from-top-4">
+                        <Sparkles className="w-10 h-10 text-blue-700 dark:text-sky-400 animate-pulse" />
+                        Analyzing Your Needs
+                    </h2>
 
-                        {/* Body Text: FIX: Default is dark gray for contrast */}
-                        <p className="text-lg text-gray-700 dark:text-gray-300 text-center mb-6 animate-in slide-in-from-top-5">
-                            Analyzing your request and classifying your category...
+                    {/* Increased text size from text-lg to text-xl */}
+                    <p className="text-xl text-gray-700 dark:text-sky-300 text-center mb-10 animate-in slide-in-from-top-5">
+                        Classifying and matching benefits. This usually takes a moment...
+                    </p>
+
+                    <div className="w-full max-w-md mx-auto mb-8">
+                        <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-gradient-to-r from-sky-400 to-blue-700 transition-all duration-300 ease-out"
+                                style={{ width: `${progress}%` }}
+                            />
+                        </div>
+                        {/* Increased text size from text-sm to text-base */}
+                        <p className="text-base text-gray-500 dark:text-gray-400 text-center mt-3">{progress}% complete</p>
+                    </div>
+
+                    <div className="w-full max-w-md mx-auto space-y-4 text-left">
+                        {/* Increased text size for status messages from text-gray-700 to text-lg */}
+                        <div className="flex items-center gap-3 text-lg text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-2 duration-500">
+                            <div className="w-3 h-3 bg-blue-600 dark:bg-sky-400 rounded-full"></div>
+                            <span>Processing user request</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-lg text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-3 duration-700">
+                            <div className="w-3 h-3 bg-sky-500 dark:bg-blue-600 rounded-full"></div>
+                            <span>Classifying benefit category (AI Model Check)</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-lg text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-4 duration-900">
+                            <div className="w-3 h-3 bg-blue-600 dark:bg-sky-400 rounded-full"></div>
+                            <span>Finding matching benefits (Mock Data Retrieval)</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-12 p-6 bg-gray-100 border border-gray-300 dark:bg-gray-800/70 dark:border-gray-700 rounded-xl w-full">
+                        {/* Increased text size from text-xs to text-sm */}
+                        <p className="text-sm font-semibold text-gray-500 mb-2">Your query:</p>
+                        {/* Increased text size from text-sm to text-base */}
+                        <p className="text-base text-gray-700 dark:text-gray-400 italic leading-relaxed">
+                            "{inputText.substring(0, 150)}{inputText.length > 150 ? '...' : ''}"
                         </p>
-
-                        {/* Progress Bar: FIX: Gradient is Purple/Teal */}
-                        <div className="w-full max-w-md mb-8">
-                            <div className="h-2 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-gradient-to-r from-teal-500 to-indigo-600 transition-all duration-300 ease-out"
-                                    style={{ width: `${progress}%` }}
-                                />
-                            </div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2">{progress}% complete</p>
-                        </div>
-
-                        {/* Contextual Steps: FIX: Default is dark for contrast, accents use Purple/Teal */}
-                        <div className="w-full max-w-md space-y-4 animate-in slide-in-from-bottom-4">
-                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-2 duration-500">
-                                <div className="w-2 h-2 bg-indigo-600 dark:bg-teal-400 rounded-full animate-pulse"></div>
-                                <span>Processing your request</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-3 duration-700">
-                                <div className="w-2 h-2 bg-teal-500 dark:bg-indigo-600 rounded-full animate-pulse"></div>
-                                <span>Classifying benefit category</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300 animate-in slide-in-from-left-4 duration-900">
-                                <div className="w-2 h-2 bg-indigo-600 dark:bg-teal-400 rounded-full animate-pulse"></div>
-                                <span>Finding matching benefits</span>
-                            </div>
-                        </div>
-
-                        {/* Input Display: FIX: Default background is light, dark text */}
-                        <div className="mt-8 p-4 bg-gray-100 border border-gray-300 dark:bg-white/5 dark:border-gray-700 rounded-lg w-full animate-in slide-in-from-bottom-5">
-                            <p className="text-sm text-gray-700 dark:text-gray-400 italic leading-relaxed">
-                                "{inputText.substring(0, 150)}{inputText.length > 150 ? '...' : ''}"
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>

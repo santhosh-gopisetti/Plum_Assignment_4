@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 export const TimelineStep = ({ index, text, completed, onToggle }) => {
   return (
     <div className="relative">
-      {/* Step Icon: Repositioned for PLUM Aesthetic Timeline */}
+      {/* Step Icon: Repositioned to center over the timeline line */}
       <div className="absolute -left-5 top-0 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
         <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full text-white font-bold flex items-center justify-center shadow-lg ${
           completed 
@@ -15,11 +15,11 @@ export const TimelineStep = ({ index, text, completed, onToggle }) => {
         </div>
       </div>
       <div
-        // Step Card: Clean, simple design for professionalism
+        // Step Card: Increased left margin (ml-12) to clear the absolute circle
         className={`ml-10 md:ml-12 p-5 md:p-6 rounded-xl border transition cursor-pointer ${
           completed
             ? 'bg-teal-50 border-teal-300 hover:bg-teal-100 dark:bg-teal-900/30 dark:border-teal-700' // Completed State
-            : 'bg-white border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700/30' // Pending State
+            : 'bg-white border-gray-300 hover:bg-gray-50 dark:bg-gray-800/20 dark:hover:bg-gray-700/30' // Pending State
         } backdrop-blur-sm`}
         onClick={onToggle}
         role="checkbox"
