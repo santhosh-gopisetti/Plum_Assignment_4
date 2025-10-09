@@ -75,10 +75,10 @@ The **`api.js`** file acts as a resilient service wrapper, demonstrating advance
 
 ## 5. Screenshots
 
- ![Input Screen Image](/screenshots/input.png) 
- ![Loading Classification Screen](/screenshots/loading.png) 
- ![Benefits Screen](/screenshots/benefits.png) 
- ![Action Plan Screen](/screenshots/actionplan.png) 
+ ![Input Screen Image](/public/screenshots/input.png) 
+ ![Loading Classification Screen](/public/screenshots/loading.png) 
+ ![Benefits Screen](/public/screenshots/benefits.png) 
+ ![Action Plan Screen](/public/screenshots/actionplan.png) 
 
 ***
 
