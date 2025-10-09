@@ -144,11 +144,11 @@ export const LoadingScreen = () => {
                     {/* 4. TYPOGRAPHIC REVEAL: Result Confirmation */}
                     <div className={`p-4 mt-8 text-center border-t border-gray-200 dark:border-gray-700 transition-opacity duration-1000 ${isAnalysisComplete ? 'opacity-100 animate-in fade-in' : 'opacity-0'}`}>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                            Results Matched:
+                            Found Benefits
                         </h3>
                         {/* Final, large text confirmation */}
                         <p className="text-3xl font-extrabold text-indigo-600 dark:text-teal-400 mt-2 tracking-tight">
-                            Viewing {aiCategory} Options
+                            
                         </p>
                     </div>
 
