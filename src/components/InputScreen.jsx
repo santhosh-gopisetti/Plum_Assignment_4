@@ -51,7 +51,7 @@ export const InputScreen = () => {
       <div
         className="hidden lg:flex lg:w-7/12 items-center justify-center relative"
         style={{
-          backgroundImage: 'url(/h.jpg)',
+          backgroundImage: 'url(/screenshots/h.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
