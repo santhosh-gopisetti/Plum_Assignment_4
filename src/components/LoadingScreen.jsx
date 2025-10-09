@@ -103,7 +103,7 @@ export const LoadingScreen = () => {
                         <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2">
                             {isAnalysisComplete ? 'Analysis Complete!' : 'Initiating AI Model Check'}
                         </h2>
-                        {/* Dynamic status update */}
+                        
                         <p className="text-lg text-teal-600 dark:text-teal-400 font-medium">
                             {isAnalysisComplete ? 'Results are ready. Redirecting...' : 'Matching your needs to available coverage now.'}
                         </p>
